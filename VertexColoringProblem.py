@@ -2,6 +2,7 @@ from Graph import *
 from BP import BP
 from MCMC import MCMC
 from math import e
+import numpy as np
 
 
 class EdgePotential(Potential):
@@ -9,7 +10,7 @@ class EdgePotential(Potential):
         Potential.__init__(self)
 
     def get(self, parameters):
-        return 1 if parameters[0] != parameters[1] else 0.01
+        return 1 if parameters[0] != parameters[1] else 0.5
 
 
 class NodePotential(Potential):
@@ -51,8 +52,8 @@ def print_prob(A, w, its, max_prod=True):
     bp.run(iteration=its)
 
     p = list()
-    for i in range(n):
-        p.append(bp.prob(rvs[i]))
+    for f in factors:
+        p.append(bp.factor_prob(f))
 
     return p
 
@@ -154,8 +155,9 @@ def gibbs(A, w, burnin, its):
     mcmc = MCMC(g)
     mcmc.run(iteration=its, burnin=burnin)
 
-    p = list()
+    res = np.zeros((n, len(w)))
     for i in range(n):
-        p.append(mcmc.prob(rvs[i]))
-
-    return p
+        p = mcmc.prob(rvs[i])
+        for k, color in enumerate(w):
+            res[i, k] = p[k]
+    return res

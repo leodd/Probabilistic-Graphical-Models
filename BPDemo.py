@@ -1,7 +1,6 @@
 from VertexColoringProblem import print_prob, sumprod, maxprod
 import numpy as np
 
-
 A = np.array(
     [[0, 1, 0],
      [1, 0, 1],
