@@ -10,7 +10,7 @@ class EdgePotential(Potential):
         Potential.__init__(self)
 
     def get(self, parameters):
-        return 1 if parameters[0] != parameters[1] else 0.5
+        return 1 if parameters[0] != parameters[1] else 0
 
 
 class NodePotential(Potential):
