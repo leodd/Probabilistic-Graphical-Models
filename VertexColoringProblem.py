@@ -22,7 +22,7 @@ class NodePotential(Potential):
         return e ** self.weights[parameters[0]]
 
 
-def prob(A, w, its, max_prod=True):
+def prob(A, w, its, max_prod=False):
     n = len(A)
 
     domain = Domain(tuple(range(len(w))))
@@ -193,9 +193,11 @@ def generate_samples(A, w, burnin, its):
     mcmc = MCMC(g)
     mcmc.run(iteration=its, burnin=burnin)
 
-    for 
+    res = np.zeros((n, its + 1))
+    for i in range(n):
+        res[i, :] = mcmc.state[rvs[i]]
 
-    return 
+    return res
 
 
 def colormle(A, samples):
@@ -203,13 +205,12 @@ def colormle(A, samples):
 
     # counting the number of distinct color
     color = np.unique(samples)
-    print(color)
 
     d = len(color)
-    w = [1] * d
+    w = [0] * d
 
-    step_size = 0.4
-    its = 200
+    step_size = 1 / m
+    its = 100
     for _ in range(its):
         p = prob(A, w, 10)
 
