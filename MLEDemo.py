@@ -1,4 +1,4 @@
-from VertexColoringProblem import colormle, generate_samples
+from VertexColoringProblem import colormle, colorem, generate_samples
 import numpy as np
 
 
@@ -14,6 +14,9 @@ A = np.array([
 #     [1, 3, 2, 3]
 # ])
 
-samples = generate_samples(A, [1, 2, 3], 20, 1000)
+samples = generate_samples(A, [1, 1, 1], 20, 1000)
+
+L = [0, 1, 0]
 
 print(colormle(A, samples))
+# print(colorem(A, L, samples))

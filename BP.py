@@ -79,8 +79,11 @@ class BP:
 
     def prob(self, rv):
         p = dict()
-        for x in self.points[rv]:
-            p[x] = self.belief(x, rv)
+        for x in rv.domain.values:
+            if rv.value is None:
+                p[x] = self.belief(x, rv)
+            else:
+                p[x] = 1 if x == rv.value else 0
         self.normalize_message(p)
         return p
 
