@@ -9,13 +9,15 @@ def marginal_distribution(data, i):
     distribution = defaultdict(float)
     s = 1 / m
     for x in data:
-        distribution[x[i]] += 1
+        distribution[x[i]] += s
     return distribution
 
 
 def join_distribution(data, i, j):
+    m, _ = data.shape
+
     distribution = defaultdict(float)
-    s = 1 / len(data)
+    s = 1 / m
     for x in data:
         distribution[(x[i], x[j])] += s
     return distribution
